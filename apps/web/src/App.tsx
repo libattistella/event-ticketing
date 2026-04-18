@@ -3,9 +3,11 @@ import { Wizard } from "./components/wizard";
 
 export function App() {
   return (
-    <ErrorBoundary>
-      <Wizard />
-    </ErrorBoundary>
+    <div className="h-full w-full">
+      <ErrorBoundary>
+        <Wizard />
+      </ErrorBoundary>
+    </div>
   );
 }
 

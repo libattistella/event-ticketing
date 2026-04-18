@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Users, Clock, ShieldCheck } from "lucide-react";
 import type { Plan } from "@/types";
-import { formatCents } from "@/lib/format";
+import { formatCents } from "./helpers";
 
 interface PlanItemProps {
   plan: Plan;

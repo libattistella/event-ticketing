@@ -39,7 +39,7 @@ export const ProviderItem = ({
       aria-checked={isSelected}
       tabIndex={0}
       className={cn(
-        "cursor-pointer transition-all hover:shadow-md outline-none py-0 md:py-2",
+        "cursor-pointer transition-all hover:shadow-md outline-none py-0 md:py-2 border-1 border-background",
         isSelected && "border-1 border-primary",
       )}
       onClick={onSelect}

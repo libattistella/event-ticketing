@@ -1,5 +1,12 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { formatOptionCode, formatOptionLabel } from "./helpers";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  FieldTitle,
+} from "@/components/ui/field";
 
 interface OptionGroupProps {
   code: string;
@@ -42,15 +49,15 @@ export const OptionGroup = ({
         aria-describedby={showError ? errorId : undefined}
       >
         {values.map((v) => (
-          <div key={v} className="flex items-center space-x-2">
-            <RadioGroupItem value={v} id={`${groupId}-${v}`} />
-            <label
-              htmlFor={`${groupId}-${v}`}
-              className="text-sm cursor-pointer"
-            >
-              {formatOptionLabel(code, v)}
-            </label>
-          </div>
+          <FieldLabel htmlFor={`${groupId}-${v}`} key={v}>
+            <Field orientation="horizontal">
+              <FieldContent>
+                <FieldTitle>{formatOptionLabel(code, v)}</FieldTitle>
+                <FieldDescription>{}</FieldDescription>
+              </FieldContent>
+              <RadioGroupItem value={v} id={`${groupId}-${v}`} />
+            </Field>
+          </FieldLabel>
         ))}
       </RadioGroup>
       {showError && (

@@ -2,6 +2,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import type { PlanAddon } from "@/types";
 import { formatCents } from "@/lib/utils";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 
 interface PlanAddonsProps {
   addons: PlanAddon[];
@@ -25,15 +32,15 @@ export const PlanAddons = ({
   };
 
   return (
-    <div className="space-y-3">
-      <span className="text-sm font-medium">Add-ons</span>
-      <div className="space-y-2">
+    <div className="space-y-4">
+      <span className="block text-sm font-medium text-center md:text-left">Add-ons</span>
+      <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {addons.map((addon) => {
           const isSelected = selectedAddonIds.includes(addon.id);
           const isFree = addon.price_cents === 0;
 
           return (
-            <div key={addon.id} className="flex items-center space-x-3">
+            <Field orientation="horizontal" key={addon.id}>
               <Checkbox
                 id={`addon-${addon.id}`}
                 checked={isSelected}
@@ -41,23 +48,24 @@ export const PlanAddons = ({
                   handleToggle(addon.id, checked === true)
                 }
               />
-              <label
-                htmlFor={`addon-${addon.id}`}
-                className="flex items-center gap-2 text-sm cursor-pointer"
-              >
-                {addon.name}
-                {isFree ? (
-                  <Badge variant="default">Free</Badge>
-                ) : (
-                  <span className="text-muted-foreground">
-                    +{formatCents(addon.price_cents, addon.currency)}
-                  </span>
-                )}
-              </label>
-            </div>
+              <FieldContent>
+                <FieldLabel htmlFor={`addon-${addon.id}`}>
+                  {addon.name}
+                </FieldLabel>
+                <FieldDescription>
+                  {isFree ? (
+                    <Badge variant="default">Free</Badge>
+                  ) : (
+                    <span className="text-muted-foreground">
+                      +{formatCents(addon.price_cents, addon.currency)}
+                    </span>
+                  )}
+                </FieldDescription>
+              </FieldContent>
+            </Field>
           );
         })}
-      </div>
+      </FieldGroup>
     </div>
   );
 };

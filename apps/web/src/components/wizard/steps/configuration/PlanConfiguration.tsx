@@ -208,7 +208,7 @@ export const PlanConfigurationStep = ({
                         }}
                       />
                       {lost.length > 0 && (
-                        <Alert variant="default">
+                        <Alert variant="warning">
                           <AlertTriangle className="h-4 w-4" />
                           <AlertDescription>
                             {lost.length === 1
@@ -226,20 +226,22 @@ export const PlanConfigurationStep = ({
         </Dialog>
 
         {plan.options.length > 0 && (
-          <div className="space-y-6">
-            <h3 className="text-lg font-medium">Options</h3>
-            {plan.options.map((option) => (
-              <PlanOptions
-                key={option.code}
-                option={option}
-                value={
-                  typeof selections[option.code] === "string"
-                    ? (selections[option.code] as string)
-                    : undefined
-                }
-                onChange={handleOptionChange}
-              />
-            ))}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium text-center md:text-left">Options</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {plan.options.map((option) => (
+                <PlanOptions
+                  key={option.code}
+                  option={option}
+                  value={
+                    typeof selections[option.code] === "string"
+                      ? (selections[option.code] as string)
+                      : undefined
+                  }
+                  onChange={handleOptionChange}
+                />
+              ))}
+            </div>
           </div>
         )}
 

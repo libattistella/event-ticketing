@@ -1,9 +1,9 @@
-import { Separator } from "../ui/separator";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Pricing } from "@/types";
-import { formatCents } from "./helpers";
+import { formatCents } from "@/lib/utils";
 
 interface PlanPricingProps {
   pricing: Pricing | null;

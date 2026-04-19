@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { formatOptionCode, formatOptionLabel } from "./helpers";
 
 interface SingleOptionProps {

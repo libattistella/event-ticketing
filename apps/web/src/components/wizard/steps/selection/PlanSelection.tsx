@@ -1,6 +1,7 @@
 import type { Plan } from "@/types";
-import { ProviderSelector } from "@/components/provider";
-import { PlanList } from "@/components/plan";
+
+import { PlanList } from "./PlanList";
+import { ProviderSelector } from "./ProviderSelector";
 
 interface PlanSelectionStepProps {
   selectedProviderId: string | null;

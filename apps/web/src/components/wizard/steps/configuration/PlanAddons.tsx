@@ -1,7 +1,7 @@
-import { Checkbox } from "../ui/checkbox";
-import { Badge } from "../ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import type { PlanAddon } from "@/types";
-import { formatCents } from "./helpers";
+import { formatCents } from "@/lib/utils";
 
 interface PlanAddonsProps {
   addons: PlanAddon[];

@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { fetchPlans } from "@/api/plans";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "../../../ui/card";
 import { cn } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import type { Provider } from "@/types";

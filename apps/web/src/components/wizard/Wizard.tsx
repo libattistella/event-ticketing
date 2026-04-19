@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { ErrorBoundary } from "../utils";
-import { PlanConfigurationStep, PlanSelectionStep } from "./steps";
-import type { WizardStep, Plan } from "@/types";
+import {
+  PlanConfigurationStep,
+  PlanReviewStep,
+  PlanSelectionStep,
+  SelectionStatusStep,
+} from "./steps";
+import type { WizardStep, Plan, FinaliseResponse } from "@/types";
 import { useWizard } from "./useWizard";
 import { getStepTitle } from "./helpers";
+import { StepIndicator } from "./StepIndicator";
 
 export const Wizard = () => {
   const {
@@ -14,10 +20,14 @@ export const Wizard = () => {
     setOption,
     setAddons,
     setPricingSnapshot,
-    switchPlan
+    switchPlan,
+    reset,
   } = useWizard();
 
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [finaliseResult, setFinaliseResult] = useState<FinaliseResponse | null>(
+    null,
+  );
 
   const handleProviderSelect = (providerId: string) => {
     setProvider(providerId);
@@ -41,6 +51,21 @@ export const Wizard = () => {
     setStep(3 as WizardStep);
   };
 
+  const handleBackToConfig = () => {
+    setStep(2 as WizardStep);
+  };
+
+  const handleSubmitSuccess = (result: FinaliseResponse) => {
+    setFinaliseResult(result);
+    setStep(4 as WizardStep);
+  };
+
+  const handleStartOver = () => {
+    reset();
+    setSelectedPlan(null);
+    setFinaliseResult(null);
+  };
+
   const stepTitle = getStepTitle(state.currentStep);
 
   return (
@@ -51,9 +76,8 @@ export const Wizard = () => {
       >
         Event Ticketing
       </h1>
-
+      <StepIndicator currentStep={state.currentStep} />
       <h2 className="sr-only">{stepTitle}</h2>
-
       <ErrorBoundary key={state.currentStep}>
         {state.currentStep === 1 && (
           <PlanSelectionStep
@@ -74,6 +98,22 @@ export const Wizard = () => {
             onPlanSwitch={handlePlanSwitch}
             localPricingSnapshot={state.localPricingSnapshot}
             onPricingSnapshot={setPricingSnapshot}
+          />
+        )}
+        {state.currentStep === 3 && state.selectedPlanId && selectedPlan && (
+          <PlanReviewStep
+            planId={state.selectedPlanId}
+            plan={selectedPlan}
+            selections={state.selections}
+            selectedAddons={state.selectedAddons}
+            onEdit={handleBackToConfig}
+            onSubmitSuccess={handleSubmitSuccess}
+          />
+        )}
+        {state.currentStep === 4 && finaliseResult && (
+          <SelectionStatusStep
+            result={finaliseResult}
+            onStartOver={handleStartOver}
           />
         )}
       </ErrorBoundary>

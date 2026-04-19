@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { formatOptionCode, formatOptionLabel } from "./helpers";
 
 interface OptionGroupProps {

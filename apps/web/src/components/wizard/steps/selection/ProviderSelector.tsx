@@ -1,6 +1,6 @@
 import type { Provider } from "@/types";
-import { ErrorFallback } from "../utils";
-import { Skeleton } from "../ui/skeleton";
+import { ErrorFallback } from "@/components/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useProviders } from "@/hooks/useProviders";
 import { ProviderItem } from "./ProviderItem";
 

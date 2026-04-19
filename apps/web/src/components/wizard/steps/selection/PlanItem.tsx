@@ -5,13 +5,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn, formatCents } from "@/lib/utils";
 import { Users, Clock, ShieldCheck } from "lucide-react";
 import type { Plan } from "@/types";
-import { formatCents } from "./helpers";
 
 interface PlanItemProps {
   plan: Plan;

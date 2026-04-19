@@ -2,8 +2,10 @@ import { useEffect, useRef, useCallback } from "react";
 import type { Plan, Pricing, Selections } from "@/types";
 import { useEstimate, useUpdateEstimate } from "@/hooks/useEstimate";
 import { Button } from "@/components/ui/button";
-import { PlanAddons, PlanOptions, PlanPricing } from "@/components/plan";
-import { checkRequiredFields } from "./helpers";
+import { checkRequiredFields } from "../helpers";
+import { PlanOptions } from "./PlanOptions";
+import { PlanAddons } from "./PlanAddons";
+import { PlanPricing } from "./PlanPricing";
 
 interface ConfigurationStepProps {
   plan: Plan;

@@ -9,4 +9,4 @@ export const checkRequiredFields = (
     .every((opt) => {
       const val = selections[opt.code];
       return typeof val === "string" && val.length > 0;
-    }) || true;
+    }) ?? true;

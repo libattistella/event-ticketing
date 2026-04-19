@@ -55,7 +55,7 @@ export const PlanReviewStep = ({
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Review Your Selection</h2>
-          <Button variant="ghost" size="sm" onClick={onEdit}>
+          <Button variant="outline" size="sm" onClick={onEdit}>
             <Pencil className="mr-1 h-4 w-4" />
             Edit Configuration
           </Button>

@@ -71,7 +71,7 @@ export const Wizard = () => {
   return (
     <div className="px-4 py-8 min-h-full">
       <h1
-        className="text-3xl font-bold text-center mb-2 outline-none"
+        className="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-8 outline-none"
         tabIndex={-1}
       >
         Event Ticketing

@@ -22,7 +22,7 @@ export const PlanComparisonDialog = ({
   open,
   onOpenChange,
 }: PlanComparisonDialogProps) => {
-  const { data: plans, isLoading } = usePlans(providerId);
+  const { data: plans = [], isLoading } = usePlans(providerId);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange} >
@@ -94,7 +94,7 @@ export const PlanComparisonDialog = ({
                 </tr>
                 {getAllOptionCodes(plans).map((code) => (
                   <tr key={code} className="border-b">
-                    <td className="p-3 font-medium">
+                    <td className="p-3 font-medium capitalize">
                       {code.replace(/_/g, " ")}
                     </td>
                     {plans.map((plan) => {

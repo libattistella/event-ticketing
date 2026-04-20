@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { fetchPlans } from "@/api/plans";
 import { Card, CardContent } from "../../../ui/card";
@@ -26,6 +27,8 @@ export const ProviderItem = ({
     });
   };
 
+  const [imgError, setImgError] = useState<boolean>(false);
+
   const initials = provider.name
     .split(" ")
     .map((w) => w[0])
@@ -53,11 +56,12 @@ export const ProviderItem = ({
       onFocus={handleMouseEnter}
     >
       <CardContent className="flex items-center gap-4 p-4">
-        {provider.logo_url ? (
+        {provider.logo_url && !imgError ? (
           <img
             src={provider.logo_url}
             alt={provider.name}
             className="h-12 w-12 rounded-full object-cover"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div

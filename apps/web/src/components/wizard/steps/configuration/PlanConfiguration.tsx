@@ -103,6 +103,11 @@ export const PlanConfigurationStep = ({
         },
       });
     }
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Detect price drift
@@ -112,30 +117,21 @@ export const PlanConfigurationStep = ({
     estimatePricing !== null &&
     localPricingSnapshot.total !== estimatePricing.total;
 
-  // Update snapshot when pricing comes back
-  useEffect(() => {
-    if (estimatePricing && !localPricingSnapshot) {
-      onPricingSnapshot(estimatePricing);
-    }
-  }, [estimatePricing, localPricingSnapshot, onPricingSnapshot]);
-
   const handleOptionChange = (code: string, value: string) => {
     onOptionChange(code, value);
-    // Save current pricing as snapshot before syncing
-    if (estimatePricing) {
+    if (estimatePricing && !isPriceStale) {
       onPricingSnapshot(estimatePricing);
     }
-    // Debounced sync will fire via the effect below
   };
 
   const handleAddonsChange = (addonIds: string[]) => {
     onAddonsChange(addonIds);
-    if (estimatePricing) {
+    if (estimatePricing && !isPriceStale) {
       onPricingSnapshot(estimatePricing);
     }
   };
 
-  // Sync on selection changes (after initial)
+  // Sync on selection changes
   const selectionsKey = JSON.stringify(buildApiSelections());
   const prevSelectionsRef = useRef(selectionsKey);
 
@@ -227,7 +223,9 @@ export const PlanConfigurationStep = ({
 
         {plan.options.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-center md:text-left">Options</h3>
+            <h3 className="text-lg font-medium text-center md:text-left">
+              Options
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {plan.options.map((option) => (
                 <PlanOptions
@@ -252,11 +250,7 @@ export const PlanConfigurationStep = ({
         />
 
         <div className="flex justify-center lg:justify-end pt-4">
-          <Button
-            onClick={onContinue}
-            disabled={!allRequiredFilled}
-            size="lg"
-          >
+          <Button onClick={onContinue} disabled={!allRequiredFilled} size="lg">
             Continue to Review
           </Button>
         </div>

@@ -3,10 +3,7 @@ import { PlanItem } from "./PlanItem";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorFallback } from "@/components/utils";
 import type { Plan } from "@/types";
-import { Button } from "@/components/ui/button";
-import { LayoutGrid } from "lucide-react";
-import { useState } from "react";
-import { PlanComparisonDialog } from "./PlanComparison";
+import { PlanComparisonButton } from "./PlanComparisonButton";
 
 interface PlanListProps {
   providerId: string;
@@ -20,8 +17,6 @@ export const PlanList = ({
   onPlanSelect,
 }: PlanListProps) => {
   const { data: plans, isLoading, isError, refetch } = usePlans(providerId);
-
-  const [compareOpen, setCompareOpen] = useState<boolean>(false);
 
   if (isLoading) {
     return (
@@ -52,37 +47,22 @@ export const PlanList = ({
   }
 
   return (
-    <>
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Choose a Plan</h2>
-          {plans.length > 1 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setCompareOpen(true)}
-            >
-              <LayoutGrid className="mr-1 h-4 w-4" />
-              Compare Plans
-            </Button>
-          )}
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {plans.map((plan) => (
-            <PlanItem
-              key={plan.id}
-              plan={plan}
-              isSelected={plan.id === selectedPlanId}
-              onSelect={() => onPlanSelect(plan)}
-            />
-          ))}
-        </div>
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold">Choose a Plan</h2>
+        {plans.length > 1 && <PlanComparisonButton providerId={providerId} />}
       </div>
-      <PlanComparisonDialog
-        providerId={providerId}
-        open={compareOpen}
-        onOpenChange={setCompareOpen}
-      />
-    </>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {plans.map((plan) => (
+          <PlanItem
+            key={plan.id}
+            plan={plan}
+            isSelected={plan.id === selectedPlanId}
+            onSelect={() => onPlanSelect(plan)}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
+

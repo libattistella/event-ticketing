@@ -15,37 +15,27 @@ interface UnknownOptionFallbackProps {
   required: boolean;
 }
 
-export function UnknownOptionFallback({
+export const UnknownOptionFallback = ({
   code,
   required,
-}: UnknownOptionFallbackProps) {
-  if (typeof console !== "undefined") {
-    console.warn(`Unknown option code with no values: "${code}"`);
-  }
+}: UnknownOptionFallbackProps) => (
+  <fieldset className="space-y-2">
+    <legend className="text-sm font-medium">
+      {formatOptionCode(code)}
+      {required && (
+        <span className="ml-1 text-destructive" aria-hidden="true">
+          *
+        </span>
+      )}
+    </legend>
+    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+      <AlertTriangle className="h-4 w-4" />
+      <span>No options available for this configuration.</span>
+    </div>
+  </fieldset>
+);
 
-  return (
-    <fieldset className="space-y-2">
-      <legend className="text-sm font-medium">
-        {formatOptionCode(code)}
-        {required && (
-          <span className="ml-1 text-destructive" aria-hidden="true">
-            *
-          </span>
-        )}
-      </legend>
-      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <AlertTriangle className="h-4 w-4" />
-        <span>No options available for this configuration.</span>
-      </div>
-    </fieldset>
-  );
-}
-
-export const PlanOptions = ({
-  option,
-  value,
-  onChange,
-}: PlanOptionsProps) => {
+export const PlanOptions = ({ option, value, onChange }: PlanOptionsProps) => {
   // Single-value option auto-select
   if (option.values.length === 1) {
     return (
